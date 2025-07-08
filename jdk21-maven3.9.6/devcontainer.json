@@ -1,0 +1,33 @@
+{
+  "name": "Java 21 Dev Container with Google Formatter",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  // VS Code 拡張機能のインストール
+  "extensions": [
+    "vscjava.vscode-java-pack", // Java 開発に必要な拡張機能パック
+    "redhat.java", // 言語サポート
+    "vscjava.vscode-maven", // Maven サポート
+    "vscjava.vscode-gradle", // Gradle サポート（必要に応じて）
+    "google.google-java-format" // Google Java Format 拡張機能
+  ],
+  // コンテナ内の設定
+  "settings": {
+    "java.home": "/usr/local/openjdk-21", // JDK 21 のパス
+    "terminal.integrated.defaultProfile.linux": "bash",
+    // Google Java Format の有効化
+    "java.format.enabled": true,
+    "java.format.settings.url": "https://raw.githubusercontent.com/google/google-java-format/master/eclipse-java-google-style.xml",
+    "java.format.settings.profile": "GoogleStyle",
+    "[java]": {
+      "editor.defaultFormatter": "google.google-java-format",
+      "editor.formatOnSave": true // 保存時に自動フォーマット
+    }
+  },
+  // コンテナ起動後のコマンド
+  "postCreateCommand": "mvn install -DskipTests",
+  // ポートフォワーディング（例：Spring Boot）
+  "forwardPorts": [8080],
+  // コンテナの権限設定
+  "remoteUser": "vscode"
+}
